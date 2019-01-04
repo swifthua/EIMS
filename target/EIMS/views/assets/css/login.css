@@ -1,0 +1,28 @@
+.div2{
+	valign=top;
+	width:100%;
+	height:39px;
+	background: url(/EIMS/views/assets/img/login_css1.gif) ;
+}
+.div3{
+	valign:top;
+	width:100%;
+	height:500px;
+	background: url(/EIMS/views/assets/img/) ;
+}
+.div4{
+	width:100%;
+	height:77px;
+	background: url(/EIMS/views/assets/img/login_css2.gif) ;
+}
+.span1{
+	valign:top;
+	width:100%; 
+	height:20px; 
+	float:left;
+	text-align: center;
+}
+.table1{
+	padding-left: 60%;
+	padding-top: 150px;
+}

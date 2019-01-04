@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springboot.eims.dao.ExamineMapper" >
+  <resultMap id="BaseResultMap" type="com.springboot.eims.entity.Examine" >
+    <id column="project_id" property="projectId" jdbcType="VARCHAR" />
+    <result column="approve_id" property="approveId" jdbcType="VARCHAR" />
+    <result column="approval_opinions" property="approvalOpinions" jdbcType="VARCHAR" />
+    <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+    <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+    <result column="ext3" property="ext3" jdbcType="VARCHAR" />
+    <result column="money_source" property="moneySource" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    project_id, approve_id, approval_opinions, ext1, ext2, ext3, money_source
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from examine
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from examine
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.springboot.eims.entity.Examine" >
+    insert into examine (project_id, approve_id, approval_opinions, 
+      ext1, ext2, ext3, money_source
+      )
+    values (#{projectId,jdbcType=VARCHAR}, #{approveId,jdbcType=VARCHAR}, #{approvalOpinions,jdbcType=VARCHAR}, 
+      #{ext1,jdbcType=VARCHAR}, #{ext2,jdbcType=VARCHAR}, #{ext3,jdbcType=VARCHAR}, #{moneySource,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.springboot.eims.entity.Examine" >
+    insert into examine
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="approveId != null" >
+        approve_id,
+      </if>
+      <if test="approvalOpinions != null" >
+        approval_opinions,
+      </if>
+      <if test="ext1 != null" >
+        ext1,
+      </if>
+      <if test="ext2 != null" >
+        ext2,
+      </if>
+      <if test="ext3 != null" >
+        ext3,
+      </if>
+      <if test="moneySource != null" >
+        money_source,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="approveId != null" >
+        #{approveId,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalOpinions != null" >
+        #{approvalOpinions,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="moneySource != null" >
+        #{moneySource,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springboot.eims.entity.Examine" >
+    update examine
+    <set >
+      <if test="approveId != null" >
+        approve_id = #{approveId,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalOpinions != null" >
+        approval_opinions = #{approvalOpinions,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        ext3 = #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="moneySource != null" >
+        money_source = #{moneySource,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springboot.eims.entity.Examine" >
+    update examine
+    set approve_id = #{approveId,jdbcType=VARCHAR},
+      approval_opinions = #{approvalOpinions,jdbcType=VARCHAR},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR},
+      ext3 = #{ext3,jdbcType=VARCHAR},
+      money_source = #{moneySource,jdbcType=VARCHAR}
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </update>
+</mapper>

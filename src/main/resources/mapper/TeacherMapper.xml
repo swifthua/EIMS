@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.eims.dao.TeacherMapper">
+	<resultMap id="BaseResultMap" type="com.springboot.eims.entity.Teacher">
+		<id column="tid" jdbcType="INTEGER" property="tid" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="sex" jdbcType="VARCHAR" property="sex" />
+		<result column="birthday" jdbcType="VARCHAR" property="birthday" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="nation" jdbcType="VARCHAR" property="nation" />
+		<result column="diploma" jdbcType="VARCHAR" property="diploma" />
+		<result column="post" jdbcType="VARCHAR" property="post" />
+		<result column="job_title" jdbcType="VARCHAR" property="jobTitle" />
+		<result column="party" jdbcType="VARCHAR" property="party" />
+		<result column="remarks" jdbcType="VARCHAR" property="remarks" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		tid, name, sex, birthday, address, nation, diploma, post,
+		job_title,
+		party, remarks
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from teacher_info
+		where tid = #{tid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		teacher_info
+		where tid = #{tid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.springboot.eims.entity.Teacher">
+		insert into teacher_info (tid,
+		name, sex,
+		birthday, address, nation,
+		diploma, post, job_title,
+		party,
+		remarks)
+		values (#{tid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{sex,jdbcType=VARCHAR},
+		#{birthday,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR}, #{nation,jdbcType=VARCHAR},
+		#{diploma,jdbcType=VARCHAR}, #{post,jdbcType=VARCHAR},
+		#{jobTitle,jdbcType=VARCHAR},
+		#{party,jdbcType=VARCHAR},
+		#{remarks,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.springboot.eims.entity.Teacher">
+		insert into teacher_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="tid != null">
+				tid,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="birthday != null">
+				birthday,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="nation != null">
+				nation,
+			</if>
+			<if test="diploma != null">
+				diploma,
+			</if>
+			<if test="post != null">
+				post,
+			</if>
+			<if test="jobTitle != null">
+				job_title,
+			</if>
+			<if test="party != null">
+				party,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="tid != null">
+				#{tid,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="nation != null">
+				#{nation,jdbcType=VARCHAR},
+			</if>
+			<if test="diploma != null">
+				#{diploma,jdbcType=VARCHAR},
+			</if>
+			<if test="post != null">
+				#{post,jdbcType=VARCHAR},
+			</if>
+			<if test="jobTitle != null">
+				#{jobTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="party != null">
+				#{party,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.springboot.eims.entity.Teacher">
+		update teacher_info
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="nation != null">
+				nation = #{nation,jdbcType=VARCHAR},
+			</if>
+			<if test="diploma != null">
+				diploma = #{diploma,jdbcType=VARCHAR},
+			</if>
+			<if test="post != null">
+				post = #{post,jdbcType=VARCHAR},
+			</if>
+			<if test="jobTitle != null">
+				job_title = #{jobTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="party != null">
+				party = #{party,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where tid = #{tid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.springboot.eims.entity.Teacher">
+		update
+		teacher_info
+		set name = #{name,jdbcType=VARCHAR},
+		sex =
+		#{sex,jdbcType=VARCHAR},
+		birthday = #{birthday,jdbcType=VARCHAR},
+		address = #{address,jdbcType=VARCHAR},
+		nation =
+		#{nation,jdbcType=VARCHAR},
+		diploma = #{diploma,jdbcType=VARCHAR},
+		post
+		= #{post,jdbcType=VARCHAR},
+		job_title = #{jobTitle,jdbcType=VARCHAR},
+		party = #{party,jdbcType=VARCHAR},
+		remarks =
+		#{remarks,jdbcType=VARCHAR}
+		where tid = #{tid,jdbcType=INTEGER}
+	</update>
+
+	<!--多条件模糊查询 -->
+	<select id="mulitConditionFindLike" parameterType="com.springboot.eims.entity.Teacher"
+		resultMap="BaseResultMap">
+		SELECT * FROM teacher_info
+		<trim prefix="WHERE " prefixOverrides="AND">
+			<if test="name != null and name !=''">
+				name like CONCAT (CONCAT("%",#{name,jdbcType=VARCHAR}),"%")
+			</if>
+			<if test="address != null and address !='' ">
+				AND address like CONCAT
+				(CONCAT("%",#{address,jdbcType=VARCHAR}),"%")
+			</if>
+			<if test="diploma != null  and diploma !=''">
+				AND diploma like CONCAT
+				(CONCAT("%",#{diploma,jdbcType=VARCHAR}),"%")
+			</if>
+		</trim>
+	</select>
+
+	<!--统计地区查询  -->
+	<select id="countAddressCategory"  resultType="com.springboot.eims.entity.Result">
+		SELECT
+		address as 'category', 
+		 COUNT(1) as 'number'
+		FROM teacher_info GROUP BY address
+	</select>
+		<!--统计性别查询  -->
+	<select id="countSexCategory"  resultType="com.springboot.eims.entity.Result">
+		SELECT
+		sex as 'category', 
+		 COUNT(1) as 'number'
+		FROM teacher_info GROUP BY sex
+	</select>
+		<!--统计民族查询  -->
+	<select id="countNationCategory"  resultType="com.springboot.eims.entity.Result">
+		SELECT
+		nation as 'category', 
+		 COUNT(1) as 'number'
+		FROM teacher_info GROUP BY nation
+	</select>
+</mapper>

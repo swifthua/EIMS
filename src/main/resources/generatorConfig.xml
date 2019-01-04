@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+<classPathEntry location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.41\mysql-connector-java-5.1.41.jar"/>
+  <context id="context1">
+  	<!-- 省略所有的注释 -->
+  	<commentGenerator>
+		<property name="suppressAllComments" value="true"/>  
+        <property name="suppressDate" value="true" />
+	</commentGenerator>
+	
+	<!-- jdbc数据源配置 -->
+    <jdbcConnection connectionURL="jdbc:mysql://localhost:3306/eims" 
+    driverClass="com.mysql.jdbc.Driver" password="123456.." userId="root" />
+    
+    <!-- 强制使用Decimal -->
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="true" />
+    </javaTypeResolver>
+    
+    <!-- Java模型导出目录 -->
+    <javaModelGenerator targetPackage="com.springboot.eims.entity" targetProject="..\EIMS\src\main\java" />
+    
+    <!-- xml映射文件导出目录 -->
+    <sqlMapGenerator targetPackage="mapper" targetProject="..\EIMS\src\main\resources" />
+    
+   	<!-- mapper类导出 -->
+    <javaClientGenerator targetPackage="com.springboot.eims.dao" targetProject="..\EIMS\src\main\java" type="XMLMAPPER" />
+   	
+     
+     <table tableName="student_info" domainObjectName="Student"
+    	enableCountByExample="false" enableUpdateByExample="false" 
+    	enableDeleteByExample="false"  enableSelectByExample="false"
+    	selectByExampleQueryId="false"  
+     ></table>
+  </context>
+</generatorConfiguration>

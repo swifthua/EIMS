@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.eims.dao.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.springboot.eims.entity.Admin">
+    <id column="admin_id" jdbcType="VARCHAR" property="adminId" />
+    <result column="admin_name" jdbcType="VARCHAR" property="adminName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="createdate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="updatedate" jdbcType="TIMESTAMP" property="updatedate" />
+    <result column="ext1" jdbcType="VARCHAR" property="ext1" />
+    <result column="ext2" jdbcType="VARCHAR" property="ext2" />
+    <result column="ext3" jdbcType="VARCHAR" property="ext3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    admin_id, admin_name, password, createdate, updatedate, ext1, ext2, ext3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from admin_info
+    where admin_id = #{adminId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="findAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from admin_info
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from admin_info
+    where admin_id = #{adminId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.springboot.eims.entity.Admin">
+    insert into admin_info (admin_id, admin_name, password, 
+      createdate, updatedate, ext1, 
+      ext2, ext3)
+    values (#{adminId,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{updatedate,jdbcType=TIMESTAMP}, #{ext1,jdbcType=VARCHAR}, 
+      #{ext2,jdbcType=VARCHAR}, #{ext3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.springboot.eims.entity.Admin">
+    insert into admin_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="adminName != null">
+        admin_name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="createdate != null">
+        createdate,
+      </if>
+      <if test="updatedate != null">
+        updatedate,
+      </if>
+      <if test="ext1 != null">
+        ext1,
+      </if>
+      <if test="ext2 != null">
+        ext2,
+      </if>
+      <if test="ext3 != null">
+        ext3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="adminId != null">
+        #{adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="adminName != null">
+        #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ext1 != null">
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null">
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null">
+        #{ext3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springboot.eims.entity.Admin">
+    update admin_info
+    <set>
+      <if test="adminName != null">
+        admin_name = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        createdate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        updatedate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ext1 != null">
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null">
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null">
+        ext3 = #{ext3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where admin_id = #{adminId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springboot.eims.entity.Admin">
+    update admin_info
+    set admin_name = #{adminName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      createdate = #{createdate,jdbcType=TIMESTAMP},
+      updatedate = #{updatedate,jdbcType=TIMESTAMP},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR},
+      ext3 = #{ext3,jdbcType=VARCHAR}
+    where admin_id = #{adminId,jdbcType=VARCHAR}
+  </update>
+</mapper>

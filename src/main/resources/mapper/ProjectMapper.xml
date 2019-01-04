@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springboot.eims.dao.ProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.springboot.eims.entity.Project" >
+    <id column="project_id" property="projectId" jdbcType="VARCHAR" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="project_status" property="projectStatus" jdbcType="VARCHAR" />
+    <result column="proposer" property="proposer" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="DATE" />
+    <result column="update_date" property="updateDate" jdbcType="DATE" />
+    <result column="project_money" property="projectMoney" jdbcType="VARCHAR" />
+    <result column="project_desc" property="projectDesc" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+    <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+     <association property="area2" javaType="com.springboot.eims.entity.Area">
+            <id column="area_id" property="areaId" />
+            <result column="area_name" property="areaName" />
+      </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    project_id, project_name, project_status, proposer, create_date, update_date, project_money, 
+    project_desc, area, remarks, ext1, ext2
+  </sql>
+  
+  <sql id="Base_Column_List1" >
+    project_id, project_name, project_status, proposer, create_date, update_date, project_money, 
+    project_desc, area, remarks, ext1, ext2,b.area_name,b.area_id
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List1" />
+    from project a left join area_info b on a.area=b.area_id
+    where a.project_id = #{projectId,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectByKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from project a left join area_info b on a.area=b.area_id
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </select>
+  
+ <select id="selectView" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List1" />
+    from project a left join area_info b on a.area=b.area_id
+    <where> 
+    <if test="projectName != null and projectName != ''">
+       and project_name like CONCAT('%',#{projectName},'%') 
+    </if>
+     <if test="area != null and area != ''">
+       and area = #{area}
+    </if>
+    </where>
+  </select>
+  
+   <select id="findAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from project
+    <where> 
+    <if test="projectName != null and projectName != ''">
+       and project_name = #{projectName}
+    </if>
+     <if test="proposer != null and proposer != ''">
+       and proposer = #{proposer}
+    </if>
+    </where>
+  </select>
+  
+  <select id="findPass" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from project where
+	 <if test="projectStatus != null and projectStatus != ''">
+      project_status = '待审核'
+    </if>
+    <if test="projectStatus == null or projectStatus == ''">
+      project_status ='审核通过' or project_status='审核不通过'
+    </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from project
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.springboot.eims.entity.Project" >
+    insert into project (project_id, project_name, project_status, 
+      proposer, create_date, update_date, 
+      project_money, project_desc, area, 
+      remarks, ext1, ext2
+      )
+    values (#{projectId,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{projectStatus,jdbcType=VARCHAR}, 
+      #{proposer,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, #{updateDate,jdbcType=DATE}, 
+      #{projectMoney,jdbcType=VARCHAR}, #{projectDesc,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{ext1,jdbcType=VARCHAR}, #{ext2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.springboot.eims.entity.Project" >
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="projectStatus != null" >
+        project_status,
+      </if>
+      <if test="proposer != null" >
+        proposer,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="projectMoney != null" >
+        project_money,
+      </if>
+      <if test="projectDesc != null" >
+        project_desc,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="ext1 != null" >
+        ext1,
+      </if>
+      <if test="ext2 != null" >
+        ext2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectStatus != null" >
+        #{projectStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="proposer != null" >
+        #{proposer,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=DATE},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=DATE},
+      </if>
+      <if test="projectMoney != null" >
+        #{projectMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="projectDesc != null" >
+        #{projectDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springboot.eims.entity.Project" >
+    update project
+    <set >
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectStatus != null" >
+        project_status = #{projectStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="proposer != null" >
+        proposer = #{proposer,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=DATE},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=DATE},
+      </if>
+      <if test="projectMoney != null" >
+        project_money = #{projectMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="projectDesc != null" >
+        project_desc = #{projectDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springboot.eims.entity.Project" >
+    update project
+    set project_name = #{projectName,jdbcType=VARCHAR},
+      project_status = #{projectStatus,jdbcType=VARCHAR},
+      proposer = #{proposer,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=DATE},
+      update_date = #{updateDate,jdbcType=DATE},
+      project_money = #{projectMoney,jdbcType=VARCHAR},
+      project_desc = #{projectDesc,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR}
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </update>
+</mapper>
